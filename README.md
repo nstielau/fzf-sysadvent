@@ -89,6 +89,10 @@ FZF-EOF"
 }
 ```
 
+Here's the `fshow` function running against the `fzf` codebase:
+
+~[Finding a git commit](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/fshow.png)
+
 
 These helpers for kubernetes let you easily search for cluster config files and find namespaces.
 ```
@@ -113,12 +117,7 @@ ns () {
 }
 ```
 
-Cool stuff, ton of other ideas on the example page.
-
-### Level 3: Shell integration
-Sky is the limit.  Go nuts
-Autocompletion for CD, for 
-Reverse history search?
+Cool stuff, and there are tons of other ideas on the example wikipage.
 
 ## Conclusion
 
