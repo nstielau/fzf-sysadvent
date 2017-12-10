@@ -1,8 +1,4 @@
-Due 12/11/17
-Editor: sascha bates	sascha.bates@gmail.com	@sascha_d
-
------
-# Awesome bash/zsh autocompletion with fzf
+# Awesome command-line fuzzy finding with fzf
 
 ## It's all about the CLIUX
 
@@ -38,8 +34,8 @@ We'll start off looking at how we can pipe a input set to `fzf` and then pipe th
 cat /usr/share/dict/words | fzf
 ```
 
-and start typing to narrow down the list to matching words: `c` `l` `n` `j` `f` `i`.  Ok, so there is one word that 
-contain those letters in that order.  Clanjamfrie.  
+and start typing to narrow down the list to matching words: `c` `l` `n` `j` `f` `i`.  Ok, so there is one word out of the 235,886 in the dictionary that 
+contains those letters in that order.  Clanjamfrie.  
 
 ![Searching for clanjamfrie](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/clanjamfrie.png)
 
@@ -91,7 +87,7 @@ FZF-EOF"
 
 Here's the `fshow` function running against the `fzf` codebase:
 
-~[Finding a git commit](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/fshow.png)
+![Finding a git commit](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/fshow.png)
 
 
 These helpers for kubernetes let you easily search for cluster config files and find namespaces.
@@ -129,5 +125,5 @@ If you want to spruce up your command line user experience, dig in with `fzf` an
 * [fzf Examples](https://github.com/junegunn/fzf/wiki/examples#processes)
 * [Git Example, selecting a branch](https://stackoverflow.com/questions/36513310/how-to-get-a-gits-branch-with-fuzzy-finder)
 * [Using fzf to create fuzzy shell bookmarks](https://dmitryfrank.com/articles/shell_shortcuts)
-* [http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/](Using fzf with ripgrep to search while 'faster than ever')
+* [Using fzf with ripgrep to search while 'faster than ever'](http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/)
 
