@@ -1,8 +1,4 @@
-Due 12/11/17
-Editor: sascha bates	sascha.bates@gmail.com	@sascha_d
-
------
-# Awesome bash/zsh autocompletion with fzf
+# Awesome command-line fuzzy finding with fzf
 
 ## It's all about the CLIUX
 
