@@ -38,8 +38,8 @@ We'll start off looking at how we can pipe a input set to `fzf` and then pipe th
 cat /usr/share/dict/words | fzf
 ```
 
-and start typing to narrow down the list to matching words: `c` `l` `n` `j` `f` `i`.  Ok, so there is one word that 
-contain those letters in that order.  Clanjamfrie.  
+and start typing to narrow down the list to matching words: `c` `l` `n` `j` `f` `i`.  Ok, so there is one word out of the 235,886 in the dictionary that 
+contains those letters in that order.  Clanjamfrie.  
 
 ![Searching for clanjamfrie](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/clanjamfrie.png)
 
