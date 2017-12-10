@@ -37,19 +37,22 @@ cat /usr/share/dict/words | fzf
 ```
 And start typing to narrow down the list to matching words: `c` `l` `n` `j` `f` `i`.  Ok, so there is one word that 
 contain those letters in that order.  Clanjamfrie.  
-[IMAGE]
+
+![Searching for clanjamfrie](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/clanjamfrie.png)
 
 It's a Scottish word that means spoken nonsense, as in"Anyone who doesn’t like fuzzy finding is just spouting 
 clanfamfrie". Who knew?  Now we are getting somewhere.  Pipe that to cowsay and alias it for future use:
 
-[IMAGE]
+![fzf and cowsay FTW](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/cowsay.png)
 
 Now that we've got our vocabulary searching down, let's tackle another common need for searching, finding a file.  
 Maybe we just remember it is a JSON file somewhere in our home directory.  We will know it when we see it, but don't 
 quite remember the name.  So we'll use `find ` to search for files with a `.json` extension in our home directory, and 
 pipe to `fzf` for fuzzy finding:
 
-```find ~ -name “*.json” | fzf```
+```
+find ~ -name “*.json” | fzf
+```
 
 Fzf acts like an interactive realtime grep, so we can quickly narrow or broaden the search.  If we want to set the 
 default command for `fzf` we can set the `FZF_DEFAULT_COMMAND` variable.  This command is used when there is nothing 
