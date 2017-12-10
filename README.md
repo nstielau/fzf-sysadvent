@@ -16,7 +16,9 @@ to review, or finding a a process Id or user Id to use as a parameters for other
 
 [Fzf](https://github.com/junegunn/fzf/) is a fuzzy finder, a CLI tool that is explicitly meant to bridge the technical 
 need to find things with the user need to find them easily.  Written by [junegunn](https://github.com/junegunn), 
-around for a few years.  But this is the year you use it to make your CLIUX awesome.
+it has been around for a few years, but this is the year you use it to make your CLIUX awesome.
+
+~[FZF Logo](https://raw.githubusercontent.com/junegunn/i/master/fzf.png)
 
 FZF adheres to the Unix Philosophy of [doing one thing, and doing it well](https://en.wikipedia.org/wiki/Unix_philosophy#Do_One_Thing_and_Do_It_Well) and valuing composability.  These two characteristics make it likely we can find lots of ways to use fuzzy finding, and to integrate it into our daily operations.
 
@@ -114,6 +116,12 @@ ns () {
 ```
 
 Cool stuff, and there are tons of other ideas on the example wikipage.
+
+## Autocompletion
+
+If you want to take it to the next level, `fzf` comes with scripts, configuration variables, and docs for [integrating `fzf` with your shell for autocompletion](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh).
+
+![Autocompletion of a kill command](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/kill.png)
 
 ## Conclusion
 
