@@ -91,7 +91,7 @@ FZF-EOF"
 
 Here's the `fshow` function running against the `fzf` codebase:
 
-~[Finding a git commit](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/fshow.png)
+![Finding a git commit](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/fshow.png)
 
 
 These helpers for kubernetes let you easily search for cluster config files and find namespaces.
@@ -129,5 +129,5 @@ If you want to spruce up your command line user experience, dig in with `fzf` an
 * [fzf Examples](https://github.com/junegunn/fzf/wiki/examples#processes)
 * [Git Example, selecting a branch](https://stackoverflow.com/questions/36513310/how-to-get-a-gits-branch-with-fuzzy-finder)
 * [Using fzf to create fuzzy shell bookmarks](https://dmitryfrank.com/articles/shell_shortcuts)
-* [http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/](Using fzf with ripgrep to search while 'faster than ever')
+* [Using fzf with ripgrep to search while 'faster than ever'](http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/)
 
