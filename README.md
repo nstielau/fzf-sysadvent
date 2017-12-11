@@ -112,19 +112,6 @@ FZF-EOF"
 
 Wow! Does anyone else feel like we just implemented Github in like 6 lines?!?!
 
-## Step 6) Kubernetes Log Previewer (WRK IN PRGSS)
-
-Let's put together what we've learned to make a helpful log preview and viewer tool for kubernetes
-```
-klogs() {
-  kubectl get pods POD_NAME_HERE -o jsonpath='{.spec.containers[*].name} |
-  fzf --ansi --preview "kubectl logs --tail=20 {} \
-             --bind "enter:execute:(kubectl logs {} | less -R)"
-}
-```
-
-TBD IMAGE HERE
-
 ## Autocompletion
 
 Autocompletion is easy to set up too, `fzf` comes with scripts, configuration variables, and docs for [integrating `fzf` with your shell for autocompletion](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh).  This gives you some `fzf` goodness for standard commands like `kill`, `ssh`, etc
