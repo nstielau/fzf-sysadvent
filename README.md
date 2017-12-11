@@ -8,6 +8,7 @@ design love, but this holiday season, treat yourself to a great command line use
 
 Now that we're thinking about CLIUX, we can roll up our sleeves and see how we can improve some of our everyday command line 
 operations.  This can be as simple as [adding in some colors](http://ethanschoonover.com/solarized) to our shell prompts or big as [changing over to a new shell](https://github.com/robbyrussell/oh-my-zsh/).  
+
 We're going to focus on a few ways to make finding things easier.
 
 ## Enter FZF
