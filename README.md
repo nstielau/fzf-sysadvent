@@ -19,7 +19,7 @@ to review, or finding a a process Id or user Id to use as a parameters for other
 need to find things with the user need to find them easily.  Written by [junegunn](https://github.com/junegunn), 
 it has been around for a few years, but this is the year you use it to make your CLIUX awesome.
 
-![FZF Logo](https://raw.githubusercontent.com/junegunn/i/master/fzf.png)
+![FZF Logo](https://raw.githubusercontent.com/junegunn/i/master/fzf.png {width=200px)
 
 FZF adheres to the Unix Philosophy of [doing one thing, and doing it well](https://en.wikipedia.org/wiki/Unix_philosophy#Do_One_Thing_and_Do_It_Well) and valuing composability.  These two characteristics make it likely we can find lots of ways to use fuzzy finding, and to integrate it into our daily operations.
 
