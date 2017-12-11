@@ -70,15 +70,15 @@ cat /usr/share/dict/words | fzf --preview "cowsay {}" | cowsay
 
 ![Preview that moo](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/imagine.png)
 
-Step 4) Real world use-case
+## Step 4) Gitting More Pragmatic
 
-Not that cowsay isn't a real world use-case, but let's git [sic] into something more pragmatic, like... git!  This gem is from the [ample examples on the fzf wiki](https://github.com/junegunn/fzf/wiki/examples), although paired down a bit for consumability.  It shows how to search though git logs and examine a diff.
+Not that cowsay isn't a real world use-case, but let's get into something more pragmatic, like... git!  This gem of an example is from the [ample examples on the fzf wiki](https://github.com/junegunn/fzf/wiki/examples) (although paired down a bit for consumability here).  It shows how to search though git logs and examine a diff.
 ```
 # fshow - git commit browser
 fshow() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-  fzf --ansi --bind "ctrl-m:execute:
+  fzf --ansi --bind "enter:execute:
                 (grep -o '[a-f0-9]\{7\}' | head -1 |
                 xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
                 {}
@@ -86,11 +86,13 @@ FZF-EOF"
 }
 ```
 
+The big new addition here is the `--bind` option, which can specify a program to execute upon key press or selection.  The `fshow` function uses this functionality to view the git diff with `less` when enter is pressed.
+
 Here's the `fshow` function running against the `fzf` codebase:
 
 ![Finding a git commit](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/fshow.png)
 
-Step 5) Make viewing diffs easy
+## Step 5) Make viewing diffs easy
 
 This is pretty cool, but we already know how to make it cooler.  With `--preview`!
 
@@ -99,7 +101,7 @@ fshow() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
   fzf --ansi --preview "echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always %'" \
-             --bind "ctrl-m:execute:
+             --bind "enter:execute:
                 (grep -o '[a-f0-9]\{7\}' | head -1 |
                 xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
                 {}
@@ -110,18 +112,18 @@ FZF-EOF"
 
 Wow! Does anyone else feel like we just implemented Github in like 6 lines?!?!
 
-## Step 6) Kubernetes Log Previewer
+## Step 6) Kubernetes Log Previewer (WRK IN PRGSS)
 
 Let's put together what we've learned to make a helpful log preview and viewer tool for kubernetes
 ```
 klogs() {
   kubectl get pods POD_NAME_HERE -o jsonpath='{.spec.containers[*].name} |
   fzf --ansi --preview "kubectl logs --tail=20 {} \
-             --bind "ctrl-m:execute:(kubectl logs {} | less -R)"
+             --bind "enter:execute:(kubectl logs {} | less -R)"
 }
 ```
 
-IMAGE HERE
+TBD IMAGE HERE
 
 ## Autocompletion
 
