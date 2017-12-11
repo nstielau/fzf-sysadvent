@@ -25,11 +25,13 @@ FZF adheres to the Unix Philosophy of [doing one thing, and doing it well](https
 
 ## Using FZF
 
+### Getting started
+
 You can install FZF with package managers, `brew install fzf` for OSX and `dnf install fzf` for Fedora, or check out 
 the [full installation instructions](https://github.com/junegunn/fzf#installation) for other options.  Once you've got 
 it installed, we'll start fuzzy finding! 
 
-### Level 1: What is this thing, & Piping STDIN
+### Step 1) Piping data into FZF
 
 We'll start off looking at how we can pipe a input set to `fzf` and then pipe the selected value to another utility.  Fzf can fuzzy search any input from stdin.  For starters, let's pipe our dictionary through `fzf`,
 
@@ -43,44 +45,40 @@ contains those letters in that order.  Clanjamfrie.
 ![Searching for clanjamfrie](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/clanjamfrie.png)
 
 It's a Scottish word that means spoken nonsense, as in"Anyone who doesn’t like fuzzy finding is just spouting 
-clanfamfrie". Who knew?  Now we are getting somewhere.  Pipe that to cowsay and alias it for future use:
+clanfamfrie". Who knew?  
+
+
+### Step 2) Piping data out of FZF
+
+Now we are getting somewhere.  Selecting a dictionary word is pretty useful, but how can we make this really great?  That's right, piping our selected word to `cowsay`.
+
+```
+cat /usr/share/dict/words | fzf | cowsay
+```
 
 ![fzf and cowsay FTW](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/cowsay.png)
 
-Now that we've got our vocabulary searching down, let's tackle another common need for searching, finding a file.  
-Maybe we just remember it is a JSON file somewhere in our home directory.  We will know it when we see it, but don't 
-quite remember the name.  So we'll use `find ` to search for files with a `.json` extension in our home directory, and 
-pipe to `fzf` for fuzzy finding:
+### Step 3) Live preview
+
+Sysadmins everywhere are on the edge of their seats.  Cowsay, dictionaries, fuzzy finding.  How can we take this to the next level?
+
+Using the `--preview` flag, we can specify a program for a live preview of our `fzf` selection.  In this case, we can get a preview of exactly how the cow will say it:
 
 ```
-find ~ -name “*.json” | fzf
+cat /usr/share/dict/words | fzf --preview "cowsay {}" | cowsay
 ```
 
-Fzf acts like an interactive realtime grep, so we can quickly narrow or broaden the search.  Search around and press enter to select a filename.  On OSX we can leverage the `open` command with `fzf` to quickly search and find files.
+![Preview that moo](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/imagine.png)
 
-```
-function open(){/usr/bin/open "$(fzf)"}
-```
+Step 4) Real world use-case
 
-Where does `fzf` get it's input set if we don't pipe in anything?  From the `FZF_DEFAULT_COMMAND` variable. Maybe we want to ignore hidden files when we're searching, 
-
-```
-# Exclude hidden files by default, and anything in the 'Library' directory
-export FZF_DEFAULT_COMMAND="find . -not -path '*/\.*' | grep -v '/Library/'" 
-```
-
-### Level 2: Advanced Searching
-OK, fzf can fuzzy find from standard in.  cool.  Let’s take the next step and think of some useful aliases for stuff 
-we regularly search through.  Also check out all the [examples on the fzf wiki](https://github.com/junegunn/fzf/wiki/examples) (some of these are taken from there).
-
-This example makes it easy to search though git logs and examine a diff.
+Not that cowsay isn't a real world use-case, but let's git [sic] into something more pragmatic, like... git!  This gem is from the [ample examples on the fzf wiki](https://github.com/junegunn/fzf/wiki/examples), although paired down a bit for consumability.  It shows how to search though git logs and examine a diff.
 ```
 # fshow - git commit browser
 fshow() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-      --bind "ctrl-m:execute:
+  fzf --ansi --bind "ctrl-m:execute:
                 (grep -o '[a-f0-9]\{7\}' | head -1 |
                 xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
                 {}
@@ -92,42 +90,48 @@ Here's the `fshow` function running against the `fzf` codebase:
 
 ![Finding a git commit](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/fshow.png)
 
+Step 5) Make viewing diffs easy
 
-These helpers for kubernetes let you easily search for cluster config files and find namespaces.
+This is pretty cool, but we already know how to make it cooler.  With `--preview`!
+
 ```
-# short alias that uses chosen namespace
-k () {
-    kubectl --namespace=${NS:-default} $@
-}
-
-# short alias for picking a Kube config
-c () {
-  export KUBECONFIG=$(find ~/.kube -type f -name '*'"$1"'*' -exec grep -q "clusters:" {} \; -print | fzf --select-1)
-}
-
-# helper for setting a namespace
-ns () {
-    namespaces=$(timeout 10s kubectl get ns -o=custom-columns=:.metadata.name)
-    if [ "$?" -eq "124" ]; then
-        printf "Could not connect to k8s cluster"
-    fi
-    export NS=`echo $namespaces | fzf --select-1`
-    echo "Set namespace to $NS"
+fshow() {
+  git log --graph --color=always \
+      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+  fzf --ansi --preview "echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always %'" \
+             --bind "ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
 }
 ```
+![Previewing diffs](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/fshow_preview.png)
 
-Cool stuff, and there are tons of other ideas on the example wikipage.
+Wow! Does anyone else feel like we just implemented Github in like 6 lines?!?!
+
+## Step 6) Kubernetes Log Previewer
+
+Let's put together what we've learned to make a helpful log preview and viewer tool for kubernetes
+```
+klogs() {
+  kubectl get pods POD_NAME_HERE -o jsonpath='{.spec.containers[*].name} |
+  fzf --ansi --preview "kubectl logs --tail=20 {} \
+             --bind "ctrl-m:execute:(kubectl logs {} | less -R)"
+}
+```
+
+IMAGE HERE
 
 ## Autocompletion
 
-If you want to take it to the next level, `fzf` comes with scripts, configuration variables, and docs for [integrating `fzf` with your shell for autocompletion](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh).
+Autocompletion is easy to set up too, `fzf` comes with scripts, configuration variables, and docs for [integrating `fzf` with your shell for autocompletion](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh).  This gives you some `fzf` goodness for standard commands like `kill`, `ssh`, etc
 
 ![Autocompletion of a kill command](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/kill.png)
 
 ## Conclusion
 
 If you want to spruce up your command line user experience, dig in with `fzf` and put the power of fuzzy finding to use.  Junegunn's `fzf` is a simple, composable tool that can make your command line more efficient and usable for 2018.
-
 
 ## References, Details and Inspiration
 
