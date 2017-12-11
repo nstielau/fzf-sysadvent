@@ -7,8 +7,8 @@ if you use the command line on a daily basis (or, hourly).  Web apps and graphic
 design love, but this holiday season, treat yourself to a great command line user experience.   
 
 Now that we're thinking about CLIUX, we can roll up our sleeves and see how we can improve some of our everyday command line 
-operations.  This can be as simple as adding in some colors to our shell prompts or big as [changing over to a new 
-shell](https://github.com/robbyrussell/oh-my-zsh/).  We're going to focus on a few ways to make finding things easier.
+operations.  This can be as simple as [adding in some colors](http://ethanschoonover.com/solarized) to our shell prompts or big as [changing over to a new shell](https://github.com/robbyrussell/oh-my-zsh/).  
+We're going to focus on a few ways to make finding things easier.
 
 ## Enter FZF
 A lot of CLI is about finding stuff.  Sometimes that is finding the right files to edit, or searching through git logs 
