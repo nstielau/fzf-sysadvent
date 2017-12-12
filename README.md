@@ -140,16 +140,18 @@ c () {
 # List namespaces, preview the pods within, and save as variable
 ns () {
     namespaces=$(kubectl get ns -o=custom-columns=:.metadata.name)
-    export NS=`echo $namespaces | fzf --select-1 --preview "kubectl --namespace {} get pods 2>&1
+    export NS=`echo $namespaces | fzf --select-1 --preview "kubectl --namespace {} get pods"
     echo "Set namespace to $NS"
 }
 
 # short alias that uses chosen namespace
 k () {
-    kubectl --namespace=${NS:-default} $@ 2>&1
+    kubectl --namespace=${NS:-default} $@
 }
 
 ```
+
+
 
 Choosing a namespace:
 
