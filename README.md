@@ -33,7 +33,7 @@ it installed, we'll start fuzzy finding!
 
 ### Step 1) Piping data into FZF
 
-We'll start off looking at how we can pipe a input set to `fzf` and then pipe the selected value to another utility.  Fzf can fuzzy search any input from stdin.  For starters, let's pipe our dictionary through `fzf`,
+We'll start off looking at how we can pipe an input set to `fzf` and then pipe the selected value to another utility.  Fzf can fuzzy search any input from stdin.  For starters, let's pipe our dictionary through `fzf`,
 
 ```
 cat /usr/share/dict/words | fzf
