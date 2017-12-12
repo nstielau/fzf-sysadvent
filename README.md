@@ -70,7 +70,7 @@ cat /usr/share/dict/words | fzf --preview "cowsay {}" | cowsay
 
 ![Preview that moo](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/imagine.png)
 
-## Step 4) Gitting More Pragmatic
+### Step 4) Gitting More Pragmatic
 
 Not that cowsay isn't a real world use-case, but let's get into something more pragmatic, like... git!  This gem of an example is from the [ample examples on the fzf wiki](https://github.com/junegunn/fzf/wiki/examples) (although paired down a bit for consumability here).  It shows how to search though git logs and examine a diff.
 ```
@@ -92,7 +92,7 @@ Here's the `fshow` function running against the `fzf` codebase:
 
 ![Finding a git commit](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/fshow.png)
 
-## Step 5) Make viewing diffs easy
+### Step 5) Make viewing diffs easy
 
 This is pretty cool, but we already know how to make it cooler.  With `--preview`!
 
@@ -112,11 +112,48 @@ FZF-EOF"
 
 Wow! Does anyone else feel like we just implemented Github in like 6 lines?!?!
 
-## Autocompletion
+### Step 6) Man Explorer
 
-Autocompletion is easy to set up too, `fzf` comes with scripts, configuration variables, and docs for [integrating `fzf` with your shell for autocompletion](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh).  This gives you some `fzf` goodness for standard commands like `kill`, `ssh`, etc
+Or, whip up a man page explorer with search and live-preview:
 
-![Autocompletion of a kill command](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/kill.png)
+```
+# This is ugly.  Refactoring left as exercise to reader...
+function  mans(){
+man -k . | fzf -n1,2 --preview "echo {} | cut -d' ' -f1 | sed 's# (#.#' | sed 's#)##' | xargs -I% man %" --bind "enter:execute: (echo {} | cut -d' ' -f1 | sed 's# (#.#' | sed 's#)##' | xargs -I% man % | less -R)"
+}
+```
+
+![Man Page Explorer](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/selinux_man.png)
+
+## Why I can't live without FZF
+
+Ok, I guess I could live.  But a wouldn't want to.  I use these kubernetes config helpers every day.  In addition to saving some time, I get a little bit more joy out of the `fzf` implmentations.
+
+```
+# short alias for picking a Kube config
+# Find cluster definitions in ~/.kube and save one as variable.
+c () {
+  export KUBECONFIG=$(find ~/.kube -type f -name '*'"$1"'*' -exec grep -q "clusters:" {} \; -print | fzf --select-1)
+}
+
+# helper for setting a namespace
+# List namespaces, preview the pods within, and save as variable
+ns () {
+    namespaces=$(kubectl get ns -o=custom-columns=:.metadata.name)
+    export NS=`echo $namespaces | fzf --select-1 --preview "kubectl --namespace {} get pods 2>&1
+    echo "Set namespace to $NS"
+}
+
+# short alias that uses chosen namespace
+k () {
+    kubectl --namespace=${NS:-default} $@ 2>&1
+}
+
+```
+
+Choosing a namespace:
+
+![Kubernetes Namespace Chooser](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/choose_namespace.png)
 
 ## Conclusion
 
