@@ -140,7 +140,7 @@ c () {
 # List namespaces, preview the pods within, and save as variable
 ns () {
     namespaces=$(kubectl get ns -o=custom-columns=:.metadata.name)
-    export NS=`echo $namespaces | fzf --select-1 --preview "kubectl --namespace {} get pods"
+    export NS=`echo $namespaces | fzf --select-1 --preview "kubectl --namespace {} get pods"`
     echo "Set namespace to $NS"
 }
 
