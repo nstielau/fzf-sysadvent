@@ -127,7 +127,7 @@ man -k . | fzf -n1,2 --preview "echo {} | cut -d' ' -f1 | sed 's# (#.#' | sed 's
 
 ## Why I can't live without FZF
 
-Ok, I guess I could live.  But a wouldn't want to.  I use these kubernetes config helpers every day.  In addition to saving some time, I get a little bit more joy out of the `fzf` implmentations.
+Ok, I guess I could live.  But a wouldn't want to.  I use these kubernetes config helpers every day.  In addition to saving some time, I get a little bit more joy out of the `fzf` implmentations.  I love the command line, but that doesn't mean I don't want a great user experience.
 
 ```
 # short alias for picking a Kube config
