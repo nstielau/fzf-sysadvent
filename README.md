@@ -45,7 +45,7 @@ contains those letters in that order.  Clanjamfrie.
 ![Searching for clanjamfrie](https://raw.githubusercontent.com/nstielau/fzf-sysadvent/master/images/clanjamfrie.png)
 
 It's a Scottish word that means spoken nonsense, as in"Anyone who doesn’t like fuzzy finding is just spouting 
-clanfamfrie". Who knew?  
+clanfamfrie." Who knew?  
 
 
 ### Step 2) Piping data out of FZF
