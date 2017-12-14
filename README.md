@@ -15,13 +15,14 @@ We're going to focus on a few ways to make finding things easier.
 A lot of CLI is about finding stuff.  Sometimes that is finding the right files to edit, or searching through git logs 
 to review, or finding a a process Id or user Id to use as a parameters for other commands (kill, chgrp, etc).
 
-[Fzf](https://github.com/junegunn/fzf/) is a fuzzy finder, a CLI tool that is explicitly meant to bridge the technical 
-need to find things with the user need to find them easily.  Written by [junegunn](https://github.com/junegunn), 
-it has been around for a few years, but this is the year you use it to make your CLIUX awesome.
+[Fzf](https://github.com/junegunn/fzf) is a fuzzy finder, a CLI tool that is explicitly meant to bridge the technical 
+need to find things with the user need to find them easily.  It has been around for a few years, but this is the year you use it to make your CLIUX awesome.
 
 ![FZF Logo](https://raw.githubusercontent.com/junegunn/i/master/fzf.png)
 
 FZF adheres to the Unix Philosophy of [doing one thing, and doing it well](https://en.wikipedia.org/wiki/Unix_philosophy#Do_One_Thing_and_Do_It_Well) and valuing composability.  These two characteristics make it likely we can find lots of ways to use fuzzy finding, and to integrate it into our daily operations.
+
+Quick shoutout to [junegunn](https://github.com/junegunn/fzf) for authoring `fzf` and [Tschuy](https://tschuy.com/) for introducing `fzf` to me.
 
 ## Using FZF
 
@@ -33,7 +34,7 @@ it installed, we'll start fuzzy finding!
 
 ### Step 1) Piping data into FZF
 
-We'll start off looking at how we can pipe an input set to `fzf` and then pipe the selected value to another utility.  Fzf can fuzzy search any input from stdin.  For starters, let's pipe our dictionary through `fzf`,
+We'll start off looking at how we can pipe an input set to `fzf` and doing some fuzzy finding.  Fzf can fuzzy search any input from stdin.  For starters, let's pipe our dictionary through `fzf`,
 
 ```
 cat /usr/share/dict/words | fzf
@@ -60,7 +61,7 @@ cat /usr/share/dict/words | fzf | cowsay
 
 ### Step 3) Live preview
 
-Sysadmins everywhere are on the edge of their seats.  Cowsay, dictionaries, fuzzy finding.  How can we take this to the next level?
+Sysadmins everywhere are on the edge of their seats.  Cowsay, dictionaries, fuzzy finding.  It's almost too much.  How can we take this to the next level?
 
 Using the `--preview` flag, we can specify a program for a live preview of our `fzf` selection.  In this case, we can get a preview of exactly how the cow will say it:
 
@@ -114,7 +115,7 @@ Wow! Does anyone else feel like we just implemented Github in like 6 lines?!?!
 
 ### Step 6) Man Explorer
 
-Or, whip up a man page explorer with search and live-preview:
+Or, whip up a man page explorer with search and live-preview.  Once you have the format down, you can imagine more use-cases that boil down to fuzzy finding with a detailed preview that you can select to execute additional commands, optionally falling back to the beginning. 
 
 ```
 # This is ugly.  Refactoring left as exercise to reader...
@@ -127,7 +128,7 @@ man -k . | fzf -n1,2 --preview "echo {} | cut -d' ' -f1 | sed 's# (#.#' | sed 's
 
 ## Why I can't live without FZF
 
-Ok, I guess I could live.  But I wouldn't want to.  I use these kubernetes config helpers every day.  In addition to saving some time, I get a little bit more joy out of the `fzf` implementations.  I love the command line, but that doesn't mean I don't want a great user experience.
+Ok, I guess I could live.  But my command line useage would be a little sadder.  For example, I use these kubernetes config helpers every day.  In addition to saving some time, I get a little bit more joy out of the `fzf` implementations.  I love the command line, but that doesn't mean I don't want a great user experience.  Heck, I *deserve* one.
 
 ```
 # short alias for picking a Kube config
